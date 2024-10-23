@@ -1,9 +1,6 @@
 public class Period {
 
     public Period(int start, int end) {
-
-        System.out.println("A period object has been made");
-
     }
 
     public int duration() {
