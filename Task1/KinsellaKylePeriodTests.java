@@ -286,7 +286,7 @@ public class KinsellaKylePeriodTests {
 
 
     @Test
-    void periodOneEqualToPeriodTwo() {
+    void samePeriodTimes() {
         Period period1 = new Period(1, 2);
         Period period2 = new Period(1, 2);
 
