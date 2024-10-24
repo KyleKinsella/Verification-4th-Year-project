@@ -14,8 +14,8 @@ public class KinsellaKyleRateTests {
         String kind = "";
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         ArrayList<Period> normalPeriods = new ArrayList<>();
-        BigDecimal normalRate = BigDecimal.valueOf(0.5);
-        BigDecimal reducedRate = BigDecimal.valueOf(0.5);
+        BigDecimal normalRate = new BigDecimal("");
+        BigDecimal reducedRate = new BigDecimal("");
 
         Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
         assertNotNull(rate);
@@ -26,8 +26,8 @@ public class KinsellaKyleRateTests {
         String kind = "";
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         ArrayList<Period> normalPeriods = new ArrayList<>();
-        BigDecimal normalRate = BigDecimal.valueOf(0.5);
-        BigDecimal reducedRate = BigDecimal.valueOf(0.5);
+        BigDecimal normalRate = new BigDecimal("");
+        BigDecimal reducedRate = new BigDecimal("");
 
         Rate rate = null;
         assertNotNull(rate);
@@ -277,8 +277,8 @@ public class KinsellaKyleRateTests {
         String kind = "";
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         ArrayList<Period> normalPeriods = new ArrayList<>();
-        BigDecimal normalRate = BigDecimal.valueOf(0.5);
-        BigDecimal reducedRate = BigDecimal.valueOf(0.5);
+        BigDecimal normalRate = new BigDecimal("");
+        BigDecimal reducedRate = new BigDecimal("");
 
         Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
 
@@ -294,8 +294,8 @@ public class KinsellaKyleRateTests {
         String kind = "";
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         ArrayList<Period> normalPeriods = new ArrayList<>();
-        BigDecimal normalRate = BigDecimal.valueOf(0.5);
-        BigDecimal reducedRate = BigDecimal.valueOf(0.5);
+        BigDecimal normalRate = new BigDecimal("");
+        BigDecimal reducedRate = new BigDecimal("");
 
         Rate rate = null;
 
