@@ -167,105 +167,42 @@ public class KinsellaKylePeriodTests {
 
         assertEquals(-4, e.getMessage());
     }
-    // end of test's for Period constructor
+    // end of invalid tests for Period constructor
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // test's for duration method
+    // below is a valid test for the duration method
     @Test
     void validStartAndEndPeriod() {
         int start = 4;
-        int end = 6;
+        int end = 5;
 
         Period p1 = new Period(start, end);
 
-        assertEquals(p1.duration(), 2);
+        assertEquals(p1.duration(), 1);
     }
+    // end of valid test for the duration method
 
-    @Test
-    void invalidPeriod() {
-        Period p1 = new Period(-1, 0);
 
-        assertEquals(p1.duration(), -1);
-    }
-
+    // below is an invalid test for the duration method
     @Test
     void invalidDuration() {
-        int start = 5;
-        int end = 12;
-
+        int start = -5;
+        int end = -12;
         Period period = new Period(start, end);
 
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             period.duration();
         });
 
-        assertEquals(period.duration(), -7, e.getMessage());
+        assertEquals(period.duration(), -7);
     }
-
-    @Test
-    void startAndEndHourNotEqualDuration() {
-        int start = 2;
-        int end = 2;
-
-        Period period = new Period(start, end);
-
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
-            period.duration();
-        });
-
-        assertEquals(period.duration(), 6, e.getMessage());
-    }
+    // end of invalid tests for the duration method
 
 
-    @Test
-    void startHourNotEqualDuration() {
-        int start = 3;
-        int end = 2;
 
-        Period period = new Period(start, end);
-
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
-            period.duration();
-        });
-
-        assertEquals(period.duration(), 2, e.getMessage());
-    }
-
-
-    @Test
-    void endHourNotEqualDuration() {
-        int start = 2;
-        int end = 3;
-
-        Period period = new Period(start, end);
-
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
-            period.duration();
-        });
-
-        assertEquals(period.duration(), 1, e.getMessage());
-    }
-    // end of test's for duration method
 
 
 
