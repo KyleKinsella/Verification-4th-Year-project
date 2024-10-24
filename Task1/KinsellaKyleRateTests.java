@@ -252,6 +252,7 @@ public class KinsellaKyleRateTests {
 
         assertEquals(e.getMessage(), reducedRate);
     }
+    // end of invalid tests for the Rate constructor
 
 
 
@@ -441,4 +442,5 @@ public class KinsellaKyleRateTests {
 
         assertNotNull(rate.calculate(period));
     }
+    // end of invalid tests for the calculate method
 }
