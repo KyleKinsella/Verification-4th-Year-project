@@ -54,18 +54,16 @@ public class KinsellaKylePeriodTests {
 
 
 
+    // below are invalid tests for Period constructor
+    @Test
+    void invalidPeriodObject() {
+        int start = 2;
+        int end = 5;
 
+        Period period = null;
 
-
-
-
-
-
-
-
-
-
-
+        assertNotNull(period);
+    }
 
     @Test
     void checkSameTime() {
@@ -78,14 +76,83 @@ public class KinsellaKylePeriodTests {
     }
 
     @Test
-    void boundaryValuesInvalidObject() {
-        int start = -2;
-        int end = -5;
-
+    void startHourGreaterThan24() {
+        int start = 26;
+        int end = 2;
         Period period = new Period(start, end);
 
-        assertEquals(period.duration(), -7);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            period.duration();
+        });
+
+        assertEquals(e.getMessage(), -24);
     }
+
+    @Test
+    void startHourLessThanZero() {
+        int start = -1;
+        int end = -5;
+        Period period = new Period(start, end);
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            period.duration();
+        });
+
+        assertEquals(e.getMessage(), -6);
+    }
+
+    @Test
+    void endHourGreaterThanStartHour() {
+        int start = 1;
+        int end = 5;
+        Period period = new Period(start, end);
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            period.duration();
+        });
+
+        assertEquals(e.getMessage(), 4);
+    }
+
+    @Test
+    void startHourLessThanEndHour() {
+        int start = 5;
+        int end = 1;
+        Period period = new Period(start, end);
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            period.duration();
+        });
+
+        assertEquals(e.getMessage(), 4);
+    }
+
+    @Test
+    void startHourGreaterThan12() {
+        int start = 13;
+        int end = 14;
+        Period period = new Period(start, end);
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            period.duration();
+        });
+
+        assertEquals(e.getMessage(), 1);
+    }
+
+    @Test
+    void endHourGreaterThan12() {
+        int start = 13;
+        int end = 18;
+        Period period = new Period(start, end);
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            period.duration();
+        });
+
+        assertEquals(e.getMessage(), 5);
+    }
+
 
     @Test
     void invalidOrder() {
@@ -102,15 +169,6 @@ public class KinsellaKylePeriodTests {
     }
     // end of test's for Period constructor
 
-    @Test
-    void invalidPeriodConstructor() {
-        int start = 2;
-        int end = 5;
-
-        Period period = null;
-
-        assertNotNull(period);
-    }
 
 
 
