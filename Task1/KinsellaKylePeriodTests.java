@@ -207,14 +207,69 @@ public class KinsellaKylePeriodTests {
 
 
 
-    // test's for Overlaps(Period period) method
+    // below are valid tests for the overlaps method
     @Test
-    void validOverlapsMethod() {
+    void validOverlapPeriod() {
         Period period1 = new Period(1, 2);
         Period period2 = new Period(2, 4);
 
         assertEquals(period1.overlaps(period2), true);
     }
+
+    @Test
+    void validBoundary() {
+        Period period1 = new Period(1, 0);
+        Period period2 = new Period(0, 1);
+
+        assertEquals(period1.overlaps(period2), true);
+    }
+
+    @Test
+    void startHourAndEndHourEqualPeriod1() {
+        int start = 1;
+        int end = 5;
+        Period period1 = new Period(start, end);
+        Period period2 = new Period(2, 3);
+
+        assertEquals(period1.overlaps(period2), true);
+    }
+
+    @Test
+    void endHourAndStartHourEqualPeriod1() {
+        int start = 4;
+        int end = 9;
+        Period period1 = new Period(start, end);
+        Period period2 = new Period(2, 3);
+
+        assertEquals(period1.overlaps(period2), true);
+    }
+
+    @Test
+    void startHourAndEndHourEqualPeriod2() {
+        int start = 1;
+        int end = 3;
+        Period period1 = new Period(4, 9);
+        Period period2 = new Period(start, end);
+
+        assertEquals(period1.overlaps(period2), false);
+    }
+
+    @Test
+    void endHourAndStartHourEqualPeriod2() {
+        int start = 6;
+        int end = 9;
+        Period period1 = new Period(4, 9);
+        Period period2 = new Period(start, end);
+
+        assertEquals(period1.overlaps(period2), true);
+    }
+    // end of valid tests for the overlaps method
+
+
+
+
+
+
 
     @Test
     void invalidOverlapsMethod() {
