@@ -4,9 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KinsellaKylePeriodTests {
 
-    // test's for Period constructor
+    // below are valid tests for Period constructor
     @Test
-    void validPeriodConstructor() {
+    void validStartHourAndEndHour() {
+        int start = 1;
+        int end = 5;
+        Period period = new Period(start, end);
+
+        assertEquals(4, period.duration());
+    }
+
+
+    @Test
+    void validPeriodObject() {
         int start = 2;
         int end = 5;
 
@@ -15,14 +25,47 @@ public class KinsellaKylePeriodTests {
     }
 
     @Test
-    void invalidPeriodConstructor() {
+    void startHourGreaterThanZero() {
         int start = 2;
-        int end = 5;
+        int end = 8;
+        Period period = new Period(start, end);
 
-        Period period = null;
-
-        assertNotNull(period);
+        assertEquals(6, period.duration());
     }
+
+    @Test
+    void endHourGreaterThanZero() {
+        int start = 4;
+        int end = 7;
+        Period period = new Period(start, end);
+
+        assertEquals(3, period.duration());
+    }
+
+    @Test
+    void periodNotEqualToNull() {
+        int start = 1;
+        int end = 5;
+        Period period = new Period(start, end);
+
+        assertNotEquals(true, period);
+    }
+    // end of valid tests for Period constructor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     void checkSameTime() {
@@ -58,6 +101,33 @@ public class KinsellaKylePeriodTests {
         assertEquals(-4, e.getMessage());
     }
     // end of test's for Period constructor
+
+    @Test
+    void invalidPeriodConstructor() {
+        int start = 2;
+        int end = 5;
+
+        Period period = null;
+
+        assertNotNull(period);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
