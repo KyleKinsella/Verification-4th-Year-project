@@ -258,32 +258,172 @@ public class KinsellaKyleRateTests {
 
 
 
-
-
-
-
-
-
-
-
-    // below are tests for calculate method
+    // below are the valid tests for the calculate method
     @Test
-    void validCalculation() {
-        int start = 5;
-        int end = 9;
-        Period period = new Period(start, end);
+    void validNormalRateCalculation() {
 
-
-        String kind = "";
+        String kind = "Student";
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         ArrayList<Period> normalPeriods = new ArrayList<>();
-        BigDecimal normalRate = new BigDecimal("");
-        BigDecimal reducedRate = new BigDecimal("");
+
+        BigDecimal normalRate = new BigDecimal("10");
+        BigDecimal reducedRate = new BigDecimal("5");
+
+        int start = 1;
+        int end = 5;
+        Period period = new Period(start, end);
 
         Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
 
-        assertEquals(rate.calculate(period), rate);
+        assertEquals(40, rate.calculate(period));
     }
+
+    @Test
+    void validReducedRateCalculation() {
+        String kind = "Staff";
+
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+
+        BigDecimal normalRate = new BigDecimal("5");
+        BigDecimal reducedRate = new BigDecimal("2.5");
+
+        int start = 1;
+        int end = 5;
+        Period period = new Period(start, end);
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+
+        assertEquals(10, rate.calculate(period));
+    }
+
+    @Test
+    void validFreePeriod() {
+        String kind = "Visitor";
+
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+
+        BigDecimal normalRate = new BigDecimal("2");
+        BigDecimal reducedRate = new BigDecimal("1");
+
+        int start = 0;
+        int end = 7;
+        Period period = new Period(start, end);
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+
+        assertEquals(0, rate.calculate(period));
+    }
+
+
+    @Test
+    void invalidNormalRateCalculation() {
+        String kind = "Staff";
+
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+
+        BigDecimal normalRate = new BigDecimal("-1");
+        BigDecimal reducedRate = new BigDecimal("-0.5");
+
+        int start = -1;
+        int end = -4;
+        Period period = new Period(start, end);
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            rate.calculate(period);
+        });
+
+        assertEquals(e.getMessage(), period);
+    }
+
+    @Test
+    void invalidReducedRateCalculation() {
+        String kind = "Staff";
+
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+
+        BigDecimal normalRate = new BigDecimal("0");
+        BigDecimal reducedRate = new BigDecimal("0");
+
+        int start = 11;
+        int end = 9;
+        Period period = new Period(start, end);
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            rate.calculate(period);
+        });
+
+        assertEquals(e.getMessage(), period);
+    }
+
+    @Test
+    void invalidPeriod() {
+        String kind = "Student";
+
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+
+        BigDecimal normalRate = new BigDecimal("-5");
+        BigDecimal reducedRate = new BigDecimal("-2.5");
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+
+        int start = -1;
+        int end = 0;
+        Period period = new Period(start, end);
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            rate.calculate(period);
+        });
+
+        assertEquals(e.getMessage(), period);
+    }
+
+    @Test
+    void notFreePeriodNormalRate() {
+        String kind = "Student";
+
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+
+        BigDecimal normalRate = new BigDecimal("10");
+        BigDecimal reducedRate = new BigDecimal("5");
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+
+        int start = 6;
+        int end = 10;
+        Period period = new Period(start, end);
+
+        assertEquals(40, rate.calculate(period));
+    }
+
+    @Test
+    void notFreePeriodReducedRate() {
+        String kind = "Student";
+
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+
+        BigDecimal normalRate = new BigDecimal("10");
+        BigDecimal reducedRate = new BigDecimal("5");
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+
+        int start = 6;
+        int end = 10;
+        Period period = new Period(start, end);
+
+        assertEquals(20, rate.calculate(period));
+    }
+
 
     @Test
     void invalidCalculation() {
