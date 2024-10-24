@@ -267,25 +267,30 @@ public class KinsellaKylePeriodTests {
 
 
 
-
-
-
-
+    // below are invalid tests for the overlaps method
     @Test
-    void invalidOverlapsMethod() {
-        Period period1 = new Period(1, 2);
-        Period period2 = new Period(10, 12);
+    void invalidOverlapPeriod() {
+        Period period1 = new Period(2, 4);
+        Period period2 = new Period(8, 12);
 
         assertEquals(period1.overlaps(period2), false);
     }
+
+    @Test
+    void period1GreaterThanPeriod2() {
+        Period period1 = new Period(10, 11);
+        Period period2 = new Period(13, 15);
+
+        assertEquals(period1.overlaps(period2), false);
+    }
+
 
     @Test
     void periodOneEqualToPeriodTwo() {
         Period period1 = new Period(1, 2);
         Period period2 = new Period(1, 2);
 
-        assertEquals(period1.equals(period2), true);
+        assertEquals(period1.equals(period2), false);
     }
-
-    // end of test's for Overlaps(Period period) method
+    // end of invalid tests for the overlaps method
 }
