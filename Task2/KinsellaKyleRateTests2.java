@@ -1,3 +1,5 @@
+package cm;
+
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -8,18 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class KinsellaKyleRateTests2 {
 
     // below are valid tests for the Rate constructor
-    @Test
-    void validRateObject() {
-
-        CarParkKind kind = CarParkKind.STAFF;
-        ArrayList<Period> reducedPeriods = new ArrayList<>();
-        ArrayList<Period> normalPeriods = new ArrayList<>();
-        BigDecimal normalRate = new BigDecimal("");
-        BigDecimal reducedRate = new BigDecimal("");
-
-        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
-        assertNotNull(rate);
-    }
     @Test
     void validNormalRate() {
         CarParkKind kind = CarParkKind.STUDENT;
@@ -96,6 +86,7 @@ public class KinsellaKyleRateTests2 {
         assertNotNull(rate);
     }
     // end of valid tests for the Rate constructor
+
     // below are invalid tests for the Rate constructor
     @Test
     void invalidNormalRate() {
@@ -163,7 +154,7 @@ public class KinsellaKyleRateTests2 {
         // no need for an assert here due to the rate object having an error
     }
     @Test
-    void invalidReducedRateTwo() {
+    void invalidReducedRateSTAFF() {
         CarParkKind kind = CarParkKind.STAFF;
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         ArrayList<Period> normalPeriods = new ArrayList<>();
@@ -175,8 +166,6 @@ public class KinsellaKyleRateTests2 {
         // no need for an assert here due to the rate object having an error
     }
     // end of invalid tests for the Rate constructor
-
-
 
     // below are the valid tests for the calculate method
     @Test
@@ -194,7 +183,7 @@ public class KinsellaKyleRateTests2 {
         Period period = new Period(start, end);
 
         Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
-        assertNotNull(rate.calculate(period));
+        assertEquals(rate.calculate(period), "40");
     }
     @Test
     void validReducedRateCalculation() {
@@ -212,11 +201,10 @@ public class KinsellaKyleRateTests2 {
 
         Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
 
-        assertNotNull(rate.calculate(period));
+        assertEquals(rate.calculate(period), "10");
     }
-
     @Test
-    void validCalculatePeriod() {
+    void validCalculatePeriodNormalHourlyRateTimes2() {
         CarParkKind kind = CarParkKind.MANAGEMENT;
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         ArrayList<Period> normalPeriods = new ArrayList<>();
@@ -229,9 +217,8 @@ public class KinsellaKyleRateTests2 {
         Period period = new Period(start, end);
 
         Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
-        assertNotNull(rate.calculate(period));
+        assertNotNull(rate.calculate(period), "6");
     }
-
     @Test
     void validFreePeriod() {
         CarParkKind kind = CarParkKind.VISITOR;
@@ -246,8 +233,11 @@ public class KinsellaKyleRateTests2 {
         Period period = new Period(start, end);
 
         Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
-        assertNotNull(rate.calculate(period));
+        assertNotNull(rate.calculate(period), "free");
     }
+    // end of valid tests for the calculate method
+
+    // below are invalid tests for the calculate method
     @Test
     void invalidNormalRateCalculation() {
         CarParkKind kind = CarParkKind.STAFF;
@@ -313,7 +303,7 @@ public class KinsellaKyleRateTests2 {
         int end = 10;
         Period period = new Period(start, end);
 
-        assertEquals(40, rate.calculate(period));
+        assertEquals(rate.calculate(period), "40");
     }
     @Test
     void notFreePeriodReducedRate() {
@@ -330,9 +320,99 @@ public class KinsellaKyleRateTests2 {
         Period period = new Period(start, end);
 
         Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
-        assertEquals(20, rate.calculate(period));
+        assertEquals(rate.calculate(period), "20");
     }
     // end of invalid tests for the calculate method
 
-    // below are my white / glass box tests for the period class
+    // below are my white / glass box tests for the rate class
+    @Test
+    void reducedPeriodsNull() {
+        CarParkKind kind = CarParkKind.STUDENT;
+        ArrayList<Period> reducedPeriods = null;
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+
+        BigDecimal normalRate = new BigDecimal("10");
+        BigDecimal reducedRate = new BigDecimal("5");
+
+        int start = 6;
+        int end = 10;
+        Period period = new Period(start, end);
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+        assertNotNull(reducedPeriods);
+    }
+    @Test
+    void normalPeriodsNull() {
+        CarParkKind kind = CarParkKind.STUDENT;
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        ArrayList<Period> normalPeriods = null;
+
+        BigDecimal normalRate = new BigDecimal("10");
+        BigDecimal reducedRate = new BigDecimal("5");
+
+        int start = 6;
+        int end = 10;
+        Period period = new Period(start, end);
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+        assertNotNull(normalPeriods);
+    }
+    @Test
+    void normalRateNull() {
+        CarParkKind kind = CarParkKind.STUDENT;
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+
+        BigDecimal normalRate = null;
+        BigDecimal reducedRate = new BigDecimal("5");
+
+        int start = 6;
+        int end = 10;
+        Period period = new Period(start, end);
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+        assertNotNull(normalRate);
+    }
+    @Test
+    void reducedRateNull() {
+        CarParkKind kind = CarParkKind.STUDENT;
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+
+        BigDecimal normalRate = new BigDecimal("10");
+        BigDecimal reducedRate = null;
+
+        int start = 6;
+        int end = 10;
+        Period period = new Period(start, end);
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+        assertNotNull(reducedRate);
+    }
+    @Test
+    void notIsValidPeriodsForReducedPeriodsAndNormalPeriods() {
+        CarParkKind kind = CarParkKind.STUDENT;
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+
+        Period reducedPeriod1 = new Period(1, 2);
+        Period reducedPeriod2 = new Period(6, 9);
+        Period reducedPeriod3 = new Period(9, 12);
+        reducedPeriods.add(reducedPeriod1);
+        reducedPeriods.add(reducedPeriod2);
+        reducedPeriods.add(reducedPeriod3);
+
+        Period normalPeriod1 = new Period(1, 2);
+        Period normalPeriod2 = new Period(6, 9);
+        Period normalPeriod3 = new Period(9, 12);
+        normalPeriods.add(normalPeriod1);
+        normalPeriods.add(normalPeriod2);
+        normalPeriods.add(normalPeriod3);
+
+        BigDecimal normalRate = new BigDecimal("10");
+        BigDecimal reducedRate = new BigDecimal("5");
+
+        Rate rate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+        assertNotNull(rate);
+    }
 }
