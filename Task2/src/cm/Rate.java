@@ -1,4 +1,4 @@
-//package cm;
+package cm;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -94,5 +94,4 @@ public class Rate {
         return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))).add(
                 this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
     }
-
 }
