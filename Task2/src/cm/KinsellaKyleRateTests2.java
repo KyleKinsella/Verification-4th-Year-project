@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class KinsellaKyleRateTests2 {
-
     // below are valid tests for the Rate constructor
     @Test
     void validNormalRate() {

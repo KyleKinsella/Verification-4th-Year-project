@@ -166,7 +166,6 @@ public class KinsellaKylePeriodTests2 {
         Period period2 = new Period(start, end);
         assertEquals(period1.overlaps(period2), true);
     }
-
     // i forgot to write this test for task 1 but i have wrote it now
     @Test
     void period1IsEqualToPeriod2() {
