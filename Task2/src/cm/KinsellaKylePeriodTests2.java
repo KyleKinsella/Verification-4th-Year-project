@@ -125,7 +125,6 @@ public class KinsellaKylePeriodTests2 {
     void validOverlapPeriod() {
         Period period1 = new Period(1, 2);
         Period period2 = new Period(2, 4);
-        assertFalse(period1.overlaps(period2));
         assertEquals(period1.overlaps(period2), false);
     }
     @Test
@@ -166,7 +165,7 @@ public class KinsellaKylePeriodTests2 {
         Period period2 = new Period(start, end);
         assertEquals(period1.overlaps(period2), true);
     }
-    // i forgot to write this test for task 1 but i have wrote it now
+    // i forgot to write this test for task 1 but i have wrote it now for task 2
     @Test
     void period1IsEqualToPeriod2() {
         Period period1 = new Period(2, 3);
