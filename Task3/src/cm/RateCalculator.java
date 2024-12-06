@@ -1,12 +1,16 @@
 package cm;
 
-public class Test {
-    private final RateCalculator calculator = new RateCalculator();
+public class RateCalculator {
+    private RateStrategy strat;
 
-    @Test
-    public void testVisitorRateCalculation() {
-        calculator.setStrategy(new VisitorRateStrategy());
-        assertEquals(2.50, calculator.calculate(15.00), 0.01);
-        assertEquals(0.00, calculator.calculate(8.00), 0.01);
+    public void setStrategy(RateStrategy strat) {
+        this.strat = strat;
+    }
+
+    public double calculate(double totalCost) {
+        if (strat == null) {
+            throw new IllegalArgumentException("Rate strat not set");
+        }
+        return strat.calculate(totalCost);
     }
 }
