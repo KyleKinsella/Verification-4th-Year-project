@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rate {
-    private CarParkKind kind;
-    private BigDecimal hourlyNormalRate;
-    private BigDecimal hourlyReducedRate;
+    // refactored kind, hourlyNormalRate and hourlyReducedRate to be final
+    private final CarParkKind kind;
+    private final BigDecimal hourlyNormalRate;
+    private final BigDecimal hourlyReducedRate;
     private ArrayList<Period> reduced = new ArrayList<>();
     private ArrayList<Period> normal = new ArrayList<>();
 
@@ -28,10 +29,6 @@ public class Rate {
         if (normalRate.compareTo(BigDecimal.TEN) > 0 || reducedRate.compareTo(BigDecimal.TEN) > 0) {
             System.out.println("Rates must be less than or equal to 10");
         }
-        // the below if statement is new
-        if (normalRate.compareTo(BigDecimal.ZERO) < 0 || reducedRate.compareTo(BigDecimal.ZERO) < 0) {
-            System.out.println("Rates can not be negative");
-        }
         if (!isValidPeriods(reducedPeriods) || !isValidPeriods(normalPeriods)) {
             throw new IllegalArgumentException("The periods are not valid individually");
         }
@@ -47,12 +44,12 @@ public class Rate {
 
     /**
      * Checks if two collections of periods are valid together
-     * @param periods1
-     * @param periods2
+     * // refactored @param periods1, @param periods2 no description was given, so I removed it
      * @return true if the two collections of periods are valid together
      */
     private boolean isValidPeriods(ArrayList<Period> periods1, ArrayList<Period> periods2) {
-        Boolean isValid = true;
+        // refactored Boolean to be boolean
+        boolean isValid = true;
         int i = 0;
         while (i < periods1.size() && isValid) {
             isValid = isValidPeriod(periods1.get(i), periods2);
@@ -66,8 +63,10 @@ public class Rate {
      * @param list the collection of periods to check
      * @return true if the periods do not overlap
      */
-    private Boolean isValidPeriods(ArrayList<Period> list) {
-        Boolean isValid = true;
+    // refactored Boolean to be boolean
+    private boolean isValidPeriods(ArrayList<Period> list) {
+        // refactored Boolean to be boolean
+        boolean isValid = true;
         if (list.size() >= 2) {
             Period secondPeriod;
             int i = 0;
@@ -86,8 +85,10 @@ public class Rate {
      * @param list the collection of periods to check
      * @return true if the period does not overlap in the collecton of periods
      */
-    private Boolean isValidPeriod(Period period, List<Period> list) {
-        Boolean isValid = true;
+    // refactored Boolean to be boolean
+    private boolean isValidPeriod(Period period, List<Period> list) {
+        // refactored Boolean to be boolean
+        boolean isValid = true;
         int i = 0;
         while (i < list.size() && isValid) {
             isValid = !period.overlaps(list.get(i));

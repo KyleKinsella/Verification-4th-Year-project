@@ -3,8 +3,9 @@ package cm;
 import java.util.List;
 
 public class Period {
-    private int startHour;
-    private int endHour;
+    // refactored startHour and endHour to be final
+    private final int startHour;
+    private final int endHour;
 
     public Period(int start, int end) {
         // I have refactored the code to not have start < 0, start > 24 || end < 0, end > 24
@@ -27,12 +28,15 @@ public class Period {
      * @param hour the start of the hour to check
      * @return true if the hour is within the period
      */
-    private Boolean isIn(int hour) {
+    // refactored Boolean to be boolean
+    private boolean isIn(int hour) {
         return hour >= this.startHour && hour < this.endHour;
     }
 
-    private static Boolean isIn(int hour, List<Period> list) {
-        Boolean isIn = false;
+    // refactored Boolean to be boolean
+    private static boolean isIn(int hour, List<Period> list) {
+        // refactored Boolean to be boolean
+        boolean isIn = false;
         int i = 0;
         while (i < list.size() && !isIn) {
             isIn = list.get(i).isIn(hour);
