@@ -23,4 +23,10 @@ public class CalculationTests {
         ManagementCalculation management = new ManagementCalculation();
         assertEquals(4.00, management.calculate(3.00), 0.01);
     }
+
+    @Test
+    void testStudentCalculation() {
+        StudentCalculation student = new StudentCalculation();
+        assertEquals(5.00, student.calculate(5.00), 0.01);
+    }
 }
