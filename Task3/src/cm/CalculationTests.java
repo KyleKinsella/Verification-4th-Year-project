@@ -11,4 +11,10 @@ public class CalculationTests {
         VisitorCalculation visitorCal = new VisitorCalculation();
         assertEquals(2.50, visitorCal.calculate(15.00), 0.01);
     }
+
+    @Test
+    void testStaffCalculation() {
+        StaffCalculation staff = new StaffCalculation();
+        assertEquals(16.00, staff.calculate(20.00), 0.01);
+    }
 }
