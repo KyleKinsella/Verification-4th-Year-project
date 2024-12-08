@@ -47,6 +47,25 @@ public class CalculationTests {
     }
 
     @Test
+    public void testStaffMaximumValue() {
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(8, 18));
+
+        CarParkKind kind = CarParkKind.STAFF;
+        BigDecimal normalRate = BigDecimal.valueOf(3.00);
+        BigDecimal reducedRate = BigDecimal.valueOf(2.00);
+        Rate staffRate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+
+        // Calculate cost for a periodStay
+        Period periodStay = new Period(8, 18);
+        BigDecimal result = staffRate.calculate(periodStay);
+        
+        assertEquals(BigDecimal.valueOf(16.00), result);
+    }
+
+
+    @Test
     void testVisitorCalculation() {
         VisitorCalculation visitorCal = new VisitorCalculation();
         assertEquals(2.50, visitorCal.calculate(15.00), 0.01);
