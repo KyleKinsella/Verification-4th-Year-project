@@ -101,7 +101,33 @@ public class Rate {
         int normalRateHours = periodStay.occurences(normal);
         int reducedRateHours = periodStay.occurences(reduced);
         if (this.kind==CarParkKind.VISITOR) return BigDecimal.valueOf(0);
-        return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))).add(
-                this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+
+        BigDecimal totalCost = (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours)))
+                .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+
+        switch (this.kind) {
+            case VISITOR:
+                BigDecimal visitor = BigDecimal.valueOf(10.00);
+                if (totalCost.compareTo(visitor) <= 0) {
+                    // this part is free if the cost is <= 10.00
+                    return BigDecimal.ZERO;
+                }
+                return totalCost.subtract(visitor).multiply(BigDecimal.valueOf(0.50));
+            case STAFF:
+                BigDecimal maxCost = BigDecimal.valueOf(16.00);
+                return totalCost.min(maxCost); // max cost is 16.00
+            case STUDENT:
+                BigDecimal student = BigDecimal.valueOf(5.50);
+                if (totalCost.compareTo(student) <= 0) {
+                    return totalCost; // no discount if the totalcost is <= 5.50
+                }
+                return student.add(totalCost.subtract(student).multiply(BigDecimal.valueOf(0.75)));
+            case MANAGEMENT:
+                BigDecimal management = BigDecimal.valueOf(4.00);
+                return totalCost.max(management); // cannot be more than 4.00
+            default:
+                throw new IllegalArgumentException("Invalid car park kind" + this.kind); // someone other than student, staff,
+                                                                                        // visitor and management trying to get access
+        }
     }
 }
