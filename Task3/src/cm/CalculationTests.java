@@ -24,8 +24,26 @@ public class CalculationTests {
         // Calculate cost for a periodStay
         Period periodStay = new Period(8, 12);
         BigDecimal result = visitorRate.calculate(periodStay);
-        
+
         assertEquals(BigDecimal.ZERO, result); // Should be free
+    }
+
+    @Test
+    void testVisitor() {
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(8, 12));
+        reducedPeriods.add(new Period(12, 14));
+
+        CarParkKind kind = CarParkKind.VISITOR;
+        BigDecimal normalRate = BigDecimal.valueOf(3.00);
+        BigDecimal reducedRate = BigDecimal.valueOf(2.00);
+        Rate rate = new Rate(kind, normalPeriods, reducedPeriods, normalRate, reducedRate);
+
+        Period period = new Period(8, 14);
+        BigDecimal result = rate.calculate(period);
+
+        assertEquals(BigDecimal.valueOf(0), result);
     }
 
     @Test
