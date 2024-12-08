@@ -60,10 +60,28 @@ public class CalculationTests {
         // Calculate cost for a periodStay
         Period periodStay = new Period(8, 18);
         BigDecimal result = staffRate.calculate(periodStay);
-        
+
         assertEquals(BigDecimal.valueOf(16.00), result);
     }
 
+    @Test
+    public void testStudentDiscountAboveAmount() {
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(8, 12));
+        reducedPeriods.add(new Period(12, 14));
+
+        CarParkKind kind = CarParkKind.STUDENT;
+        BigDecimal normalRate = BigDecimal.valueOf(2.00);
+        BigDecimal reducedRate = BigDecimal.valueOf(1.50);
+        Rate studentRate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+
+        // Calculate cost for a periodStay
+        Period periodStay = new Period(8, 14);
+        BigDecimal result = studentRate.calculate(periodStay);
+
+        assertEquals(BigDecimal.valueOf(9.6), result);
+    }
 
     @Test
     void testVisitorCalculation() {
