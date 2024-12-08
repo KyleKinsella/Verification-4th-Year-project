@@ -1,10 +1,8 @@
 package cm;
 
 import org.junit.jupiter.api.Test;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CalculationTests {
@@ -81,6 +79,24 @@ public class CalculationTests {
         BigDecimal result = studentRate.calculate(periodStay);
 
         assertEquals(BigDecimal.valueOf(9.6), result);
+    }
+
+    @Test
+    public void testManagementMinimum() {
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(8, 18));
+
+        CarParkKind kind = CarParkKind.MANAGEMENT;
+        BigDecimal normalRate = BigDecimal.valueOf(3.00);
+        BigDecimal reducedRate = BigDecimal.valueOf(2.00);
+        Rate managementRate = new Rate(kind, reducedPeriods, normalPeriods, normalRate, reducedRate);
+
+        // Calculate cost for a periodStay
+        Period periodStay = new Period(8, 18);
+        BigDecimal result = managementRate.calculate(periodStay);
+
+        assertEquals(BigDecimal.valueOf(30.00), result);
     }
 
     @Test
